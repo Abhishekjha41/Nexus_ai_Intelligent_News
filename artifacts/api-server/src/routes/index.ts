@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { Router, type IRouter } from "express";
-import healthRouter from "./health.js";
-import newsRouter from "./news.js";
+import healthRouter from "./health.ts";
+import newsRouter from "./news.ts";
 
 const router: IRouter = Router();
 
