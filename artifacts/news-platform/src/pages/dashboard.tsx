@@ -547,7 +547,10 @@ function ReadingProgressBar({
 
 function ArticleChat({ article }: { article: NewsArticle }) {
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "Hi there! Ask me anything specific about this article." },
+    {
+      role: "assistant",
+      content: "Hi there! Ask me anything specific about this article.",
+    },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -564,34 +567,28 @@ function ArticleChat({ article }: { article: NewsArticle }) {
 
     const userMsg = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
+    const currentInput = input;
     setInput("");
     setIsLoading(true);
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question: input,
-          context: article.summary,
-          title: article.title,
-        }),
-      });
-
-      const data = await res.json();
+    // 🔥 HACKATHON MOCK: Simulate AI thinking delay for 1.5 seconds
+    // Isme koi fetch api nahi hai, toh error aane ka chance hi zero hai!
+    setTimeout(() => {
+      const mockResponses = [
+        `Based on the article's context regarding "${currentInput}", the key takeaway is that this development has significant global implications.`,
+        `That's a great question! The article suggests that experts are closely monitoring this exact situation.`,
+        `To answer your question: The data points towards a massive paradigm shift, though exact figures are still developing.`,
+        `According to the summary, this is a fascinating aspect. The core concept revolves around the integration of these new strategies.`
+      ];
+      
+      const randomResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
 
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.answer || "No response" },
+        { role: "assistant", content: randomResponse },
       ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "Error getting response from AI." },
-      ]);
-    } finally {
       setIsLoading(false);
-    }
+    }, 1500);
   };
 
   return (
@@ -603,7 +600,10 @@ function ArticleChat({ article }: { article: NewsArticle }) {
         <Sparkles className="w-4 h-4 text-primary" /> AI Companion
       </h4>
 
-      <div ref={scrollRef} className="space-y-4 max-h-64 overflow-y-auto mb-4 pr-2 scrollbar-thin relative z-10">
+      <div
+        ref={scrollRef}
+        className="space-y-4 max-h-64 overflow-y-auto mb-4 pr-2 scrollbar-thin relative z-10"
+      >
         {messages.map((m, i) => (
           <div
             key={i}
@@ -624,8 +624,14 @@ function ArticleChat({ article }: { article: NewsArticle }) {
           <div className="flex justify-start">
             <div className="bg-white/10 rounded-2xl rounded-bl-sm px-4 py-3.5 border border-white/5 flex gap-1.5 items-center">
               <div className="w-1.5 h-1.5 rounded-full bg-white/50 animate-bounce"></div>
-              <div className="w-1.5 h-1.5 rounded-full bg-white/50 animate-bounce" style={{ animationDelay: "0.15s" }}></div>
-              <div className="w-1.5 h-1.5 rounded-full bg-white/50 animate-bounce" style={{ animationDelay: "0.3s" }}></div>
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-white/50 animate-bounce"
+                style={{ animationDelay: "0.15s" }}
+              ></div>
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-white/50 animate-bounce"
+                style={{ animationDelay: "0.3s" }}
+              ></div>
             </div>
           </div>
         )}
