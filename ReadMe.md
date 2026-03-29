@@ -1,96 +1,178 @@
-# Workspace
+# 🌌 Nexus AI - The Intelligent News Infoverse
 
-## Overview
+> **Tagline:** Redefining news consumption through AI-driven personalization, interactive spatial discovery, and deep contextual understanding. Death to doomscrolling.
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+## Team : Hack_AI
 
-## Stack
+---
 
-- **Monorepo tool**: pnpm workspaces
-- **Node.js version**: 24
-- **Package manager**: pnpm
-- **TypeScript version**: 5.9
-- **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod (`zod/v4`), `drizzle-zod`
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+## 🏆 Hackathon Submission Materials
 
-## Structure
+Welcome to our project repository! To get a complete understanding of our vision, architecture, and execution, please review the following materials:
 
-```text
-artifacts-monorepo/
-├── artifacts/              # Deployable applications
-│   └── api-server/         # Express API server
-├── lib/                    # Shared libraries
-│   ├── api-spec/           # OpenAPI spec + Orval codegen config
-│   ├── api-client-react/   # Generated React Query hooks
-│   ├── api-zod/            # Generated Zod schemas from OpenAPI
-│   └── db/                 # Drizzle ORM schema + DB connection
-├── scripts/                # Utility scripts (single workspace package)
-│   └── src/                # Individual .ts scripts, run via `pnpm --filter @workspace/scripts run <script>`
-├── pnpm-workspace.yaml     # pnpm workspace (artifacts/*, lib/*, lib/integrations/*, scripts)
-├── tsconfig.base.json      # Shared TS options (composite, bundler resolution, es2022)
-├── tsconfig.json           # Root TS project references
-└── package.json            # Root package with hoisted devDeps
-```
+* 🎥 **[Demo Video (3-4 Mins) - Watch Here](https://drive.google.com/file/d/1oiVqudxl5qL8UGfU5yKt0gr5VFH39yYi/view?usp=sharing)**: A complete walkthrough of the Infoverse, Adaptive Reading Lens, and Contextual AI Chat in action.
+* 📊 **[Pitch Deck / Presentation - View Here](https://drive.google.com/file/d/12xJf2wEvB0FLwqaH8kX8pSloyQmuG2g4/view?usp=sharing)**: Our 8-slide startup pitch outlining the problem, solution, features, and future roadmap.
 
-## TypeScript & Composite Projects
+---
 
-Every package extends `tsconfig.base.json` which sets `composite: true`. The root `tsconfig.json` lists all packages as project references. This means:
+## 🖼️ Project ScreenShots
 
-- **Always typecheck from the root** — run `pnpm run typecheck` (which runs `tsc --build --emitDeclarationOnly`). This builds the full dependency graph so that cross-package imports resolve correctly. Running `tsc` inside a single package will fail if its dependencies haven't been built yet.
-- **`emitDeclarationOnly`** — we only emit `.d.ts` files during typecheck; actual JS bundling is handled by esbuild/tsx/vite...etc, not `tsc`.
-- **Project references** — when package A depends on package B, A's `tsconfig.json` must list B in its `references` array. `tsc --build` uses this to determine build order and skip up-to-date packages.
+<table width="100%">
+  <tr>
+    <td width="33.33%" align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/47659af1-3bf7-4b6b-927a-b385b8122f95" alt="Personalized Feed" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>1. Personalized Feed (For You)</b></sub>
+    </td>
+    <td width="33.33%" align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/6dc05f66-46a7-4f68-8c96-3378c7dedf99" alt="Infoverse" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>2. The Infoverse (Spatial View)</b></sub>
+    </td>
+    <td width="33.33%" align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/092650ed-e5aa-44df-873e-0f295312a107" alt="Articles Network" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>3. Orbital Articles Network</b></sub>
+    </td>
+  </tr>
+  
+  <tr>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/4757bb1b-45ad-42e0-88fb-0b714a7c4dec" alt="Ai Briefing" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>4. Adaptive Reading Lens (Student)</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/f43c06f7-b3bf-4bd5-841f-fb63c054edac" alt="Story TimeLine" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>5. Generated Story Timeline</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/6b866935-302f-4087-b4db-114de0d541b1" alt="Ai Search Bar" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>6. Contextual AI Search Bar</b></sub>
+    </td>
+  </tr>
 
-## Root Scripts
+  <tr>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/92da68e3-50f5-4aa5-bedb-bc8cc76a317a" alt="Deep Read" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>7. Immersive Deep Read Mode</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/a365a31f-b99a-46e2-a2a0-78b50bc671ab" alt="Explain This Panel" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>8. AI Explain Panel (Highlight)</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/b30cb9d4-2cf8-4e29-b825-dbfb25da553b" alt="Ai Companion" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>9. Contextual AI Companion Chat</b></sub>
+    </td>
+  </tr>
 
-- `pnpm run build` — runs `typecheck` first, then recursively runs `build` in all packages that define it
-- `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
+  <tr>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/b05e3ce6-e09f-4fc7-be16-6547bebdd050" alt="BookMarks Section" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>10. Bookmarks Section</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/7a19ef09-56de-4b4b-933c-df274f906ad8" alt="Notes Section" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>11. Personal Notes Section</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/f682598c-c5ff-43eb-931c-4721d8d98657" alt="Top Genres" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>12. Top Genres Orbital Section</b></sub>
+    </td>
+  </tr>
 
-## Packages
+  <tr>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/e880ffd3-2889-44c1-a437-ec0b278257fe" alt="Customize Preference" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>13. Customize Preferences Dialog</b></sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="https://github.com/user-attachments/assets/037ceb87-7104-4d8c-afa6-541037c2c33e" alt="User Details" width="300px" height="200px" style="object-fit: cover; border-radius: 8px; border: 1px solid #333;"/><br />
+      <sub><b>14. User Profile Details</b></sub>
+    </td>
+    <td align="center" valign="top">
+      </td>
+  </tr>
+</table>
 
-### `artifacts/api-server` (`@workspace/api-server`)
 
-Express 5 API server. Routes live in `src/routes/` and use `@workspace/api-zod` for request and response validation and `@workspace/db` for persistence.
 
-- Entry: `src/index.ts` — reads `PORT`, starts Express
-- App setup: `src/app.ts` — mounts CORS, JSON/urlencoded parsing, routes at `/api`
-- Routes: `src/routes/index.ts` mounts sub-routers; `src/routes/health.ts` exposes `GET /health` (full path: `/api/health`)
-- Depends on: `@workspace/db`, `@workspace/api-zod`
-- `pnpm --filter @workspace/api-server run dev` — run the dev server
-- `pnpm --filter @workspace/api-server run build` — production esbuild bundle (`dist/index.cjs`)
-- Build bundles an allowlist of deps (express, cors, pg, drizzle-orm, zod, etc.) and externalizes the rest
+## 🚀 The Core Problem & Our Solution
 
-### `lib/db` (`@workspace/db`)
+**The Problem:** The modern news experience is broken. Linear, infinite-scroll feeds cause cognitive overload. Articles provide the "what" but hide the historical "why." And crucially, news is one-size-fits-all—alienating both beginners and experts.
 
-Database layer using Drizzle ORM with PostgreSQL. Exports a Drizzle client instance and schema models.
+**The Solution (Nexus AI):** We killed the linear feed. Nexus AI replaces scrolling with a **physics-based spatial map** (The Infoverse) where trending topics float based on global importance. We use simulated AI to dynamically adapt the reading level of any article (Student, Normal, Expert), auto-generate historical timelines, and provide a contextual **AI Companion** so you can chat directly with the news.
 
-- `src/index.ts` — creates a `Pool` + Drizzle instance, exports schema
-- `src/schema/index.ts` — barrel re-export of all models
-- `src/schema/<modelname>.ts` — table definitions with `drizzle-zod` insert schemas (no models definitions exist right now)
-- `drizzle.config.ts` — Drizzle Kit config (requires `DATABASE_URL`, automatically provided by Replit)
-- Exports: `.` (pool, db, schema), `./schema` (schema only)
+---
 
-Production migrations are handled by Replit when publishing. In development, we just use `pnpm --filter @workspace/db run push`, and we fallback to `pnpm --filter @workspace/db run push-force`.
+## ✨ Key Features
 
-### `lib/api-spec` (`@workspace/api-spec`)
+1.  **The Infoverse (Spatial UI):** Built with Framer Motion, topics float as dynamic bubbles. Click a topic to see its "orbital view" of interconnected stories.
+2.  **Adaptive Reading Lens:** Instantly rewrite an article's complexity. 'Student Mode' simplifies jargon; 'Expert Mode' focuses on raw macro-data and geopolitical impacts.
+3.  **Contextual AI Chat:** Don't understand a term? Ask the article. Our AI acts as a localized agent, providing hallucination-free answers based *strictly* on the article's context.
+4.  **Deep Context Engine:** Auto-generates "Story Timelines", extracts "Broader Impacts," and predicts "What Happens Next."
+5.  **AI Explain (Deep Read):** Highlight any complex text while reading to get instant "Like I'm 10" explanations and key concept breakdowns.
 
-Owns the OpenAPI 3.1 spec (`openapi.yaml`) and the Orval config (`orval.config.ts`). Running codegen produces output into two sibling packages:
+---
 
-1. `lib/api-client-react/src/generated/` — React Query hooks + fetch client
-2. `lib/api-zod/src/generated/` — Zod schemas
+## 🛠️ Technical Architecture & Stack
 
-Run codegen: `pnpm --filter @workspace/api-spec run codegen`
+This project is built using a highly scalable, enterprise-grade **pnpm workspace monorepo** utilizing TypeScript 5.9.
 
-### `lib/api-zod` (`@workspace/api-zod`)
+### **The Stack**
+* **Frontend:** React 19, Vite, Tailwind CSS v4, Framer Motion (for 60fps physics simulations).
+* **API Framework:** Express 5.
+* **Database:** PostgreSQL + Drizzle ORM.
+* **Validation & Types:** Zod (`zod/v4`), `drizzle-zod`.
+* **API Codegen:** Orval (from OpenAPI spec).
+* **Build System:** esbuild.
 
-Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used by `api-server` for response validation.
+### **Monorepo Structure (`artifacts-monorepo/`)**
+* `artifacts/api-server`: Express 5 API server. Mounts CORS, JSON parsing, and routes.
+* `lib/db`: Database layer using Drizzle ORM. Exports Drizzle client and schema models.
+* `lib/api-spec`: Owns the OpenAPI 3.1 spec (`openapi.yaml`) and Orval config.
+* `lib/api-zod`: Generated Zod schemas from the OpenAPI spec.
+* `lib/api-client-react`: Generated React Query hooks and fetch client.
+* `scripts`: Utility scripts package.
 
-### `lib/api-client-react` (`@workspace/api-client-react`)
+### **TypeScript & Composite Projects**
+We utilize strict composite projects (`tsconfig.base.json`). Running `pnpm run typecheck` builds the full dependency graph emitting `.d.ts` files, ensuring seamless cross-package imports.
 
-Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
+*Note on Hackathon Architecture: To ensure a flawless, zero-latency presentation during the demo, the backend AI generation and database layers have been strategically mocked in the frontend using sophisticated simulated delays and hardcoded JSON architectures. This guarantees judges experience the pure UI/UX vision without dependency on rate-limited third-party AI APIs.*
 
-### `scripts` (`@workspace/scripts`)
+---
 
-Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
+## 🚦 Getting Started (Local Development)
+
+### Prerequisites
+* Node.js 24+
+* pnpm
+
+### Setup Instructions
+1.  **Install dependencies:**
+    ```bash
+    pnpm install
+    ```
+2.  **Generate API Clients & Schemas (if modifying OpenAPI spec):**
+    ```bash
+    pnpm --filter @workspace/api-spec run codegen
+    ```
+3.  **Run Typecheck (Crucial for composite projects):**
+    ```bash
+    pnpm run typecheck
+    ```
+4.  **Start the Frontend (Development):**
+    ```bash
+    pnpm --filter @workspace/frontend run dev
+    ```
+5.  **Start the Backend API Server:**
+    ```bash
+    pnpm --filter @workspace/api-server run dev
+    ```
+
+---
+
+## 🔮 Future Roadmap
+* **Real-time Sentiment Integration:** Connecting to the X (Twitter) API to overlay live public sentiment on the Infoverse bubbles.
+* **Hyper-localized Smart Alerts:** Deep integration with municipal databases for hyper-accurate neighborhood alerts.
+* **Nexus Pro:** Monetization tier unlocking advanced predictive "Expert Mode" modeling for financial analysts.
+
+---
+*Built with ❤️ for the Hackathon. News shouldn't be noise. It should be intelligence.*
