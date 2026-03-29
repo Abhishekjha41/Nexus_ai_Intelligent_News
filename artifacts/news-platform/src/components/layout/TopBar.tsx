@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { Search, Bell, User, Settings, Sparkles, Bookmark, Command, Loader2, Sparkle, LogOut, Code, Trophy, Cpu } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { useBookmarks } from "@/components/news/BookmarkNotesPanel";
 import { motion, AnimatePresence } from "framer-motion";
 
