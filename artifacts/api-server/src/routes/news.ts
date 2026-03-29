@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { Router, type IRouter, type Request, type Response } from "express";
-// import { openai } from "@workspace/integrations-openai-ai-server";
 
 const router: IRouter = Router();
 
