@@ -90,29 +90,37 @@ export function ExplainPanel({ articleTitle, articleContext, articleId, containe
     setNoteText("");
     setNoteAdded(false);
 
-    try {
-      const response = await fetch("/api/news/explain", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          selectedText,
-          articleTitle,
-          articleContext: articleContext.slice(0, 500),
-        }),
-      });
-      const data = await response.json();
-      setResult(data);
-    } catch {
-      setResult({
-        selectedText,
-        simple: `"${selectedText}" is a key concept in this article.`,
-        keyConcepts: [],
-        eli5: "This is an important idea in the article.",
-        whyItMatters: "Understanding this helps grasp the full context.",
-      });
-    } finally {
+    // 🔥 HACKATHON DEMO MOCK: Simulated AI Delay and Contextual Explanation
+    setTimeout(() => {
+      const lowerSelectedText = selectedText.toLowerCase();
+      let mockExplanation: ExplainResult;
+
+      // 🎯 DEMO SPECIFIC TRIGGER
+      if (lowerSelectedText.includes("geneva climate summit")) {
+        mockExplanation = {
+          selectedText: selectedText,
+          simple: "A major international meeting in Geneva where world leaders negotiated and signed a landmark treaty to strictly limit global carbon emissions.",
+          keyConcepts: [
+            { term: "Landmark Treaty", definition: "A very important, legally binding agreement." },
+            { term: "Carbon Emissions", definition: "Pollution from burning fossil fuels like coal and oil." }
+          ],
+          eli5: "Imagine all the leaders of the world getting together in a room in Switzerland and promising to stop polluting the air, so the Earth doesn't get too hot.",
+          whyItMatters: "This summit resulted in actual legally binding rules, meaning countries can be penalized if they don't switch to clean energy. This fundamentally changes global politics and economics."
+        };
+      } else {
+        // Fallback for any other text highlighted
+        mockExplanation = {
+          selectedText: selectedText,
+          simple: `"${selectedText}" is a key concept in this article representing a major shift.`,
+          keyConcepts: [],
+          eli5: "This is an important idea that changes how things currently work.",
+          whyItMatters: "Understanding this helps grasp the full context of the article's impact."
+        };
+      }
+
+      setResult(mockExplanation);
       setIsLoading(false);
-    }
+    }, 1500); // 1.5 second realistic loading delay
   };
 
   const handleSaveNote = () => {

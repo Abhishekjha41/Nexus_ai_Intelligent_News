@@ -136,15 +136,28 @@ function ArticleChat({ article }: { article: NewsArticle }) {
     setInput("");
     setIsLoading(true);
 
+    // 🔥 HACKATHON MOCK: Simulate AI thinking delay for 1.5 seconds
     setTimeout(() => {
-      const mockResponses = [
-        `Based on the article's context regarding "${currentInput}", the key takeaway is that this development has significant global implications.`,
-        `That's a great question! The article suggests that experts are closely monitoring this exact situation.`,
-        `To answer your question: The data points towards a massive paradigm shift, though exact figures are still developing.`,
-        `According to the summary, this is a fascinating aspect. The core concept revolves around the integration of these new strategies.`
-      ];
-      const randomResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      setMessages((prev) => [...prev, { role: "assistant", content: randomResponse }]);
+      let finalResponse = "";
+      const lowerInput = currentInput.toLowerCase();
+
+      // 🎯 DEMO SPECIFIC TRIGGER: If you ask about "how this affects world"
+      if (lowerInput.includes("how this affects world") || lowerInput.includes("impact")) {
+        finalResponse = "This historic agreement sets legally binding emission targets, forcing major industrial nations to accelerate their transition to renewable energy. Globally, this could prevent up to 1.5°C of warming, saving coastal cities and completely reshaping the multi-trillion-dollar global energy market over the next decade.";
+      } else {
+        // Fallback random responses for other questions
+        const mockResponses = [
+          `Based on the article's context regarding "${currentInput}", the key takeaway is that this development has significant global implications.`,
+          `That's a great question! The article suggests that experts are closely monitoring this exact situation.`,
+          `To answer your question: The data points towards a massive paradigm shift, though exact figures are still developing.`
+        ];
+        finalResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: finalResponse },
+      ]);
       setIsLoading(false);
     }, 1500);
   };
