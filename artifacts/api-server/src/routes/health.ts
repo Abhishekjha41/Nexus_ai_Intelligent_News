@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Router, type IRouter } from "express";
-import { HealthCheckResponse } from "@workspace/api-zod/generated/api.ts";
+import { HealthCheckResponse } from "@workspace/api-zod/index.ts";
 
 const router: IRouter = Router();
 
