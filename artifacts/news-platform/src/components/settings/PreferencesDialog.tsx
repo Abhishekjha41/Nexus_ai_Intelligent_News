@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGetUserPreferences, useSaveUserPreferences, UserPreferencesReadingLevel } from "@workspace/api-client-react";
 import { X, Save, Check } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 const CATEGORIES = ["Tech", "Politics", "Sports", "Finance", "Entertainment", "World", "Science", "Business"];
 
