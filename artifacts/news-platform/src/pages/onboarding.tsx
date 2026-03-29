@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSaveUserPreferences, UserPreferencesReadingLevel } from "@workspace/api-client-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Sparkles, ArrowRight, Brain, Globe, Shield } from "lucide-react";
 
 const CATEGORIES = [
