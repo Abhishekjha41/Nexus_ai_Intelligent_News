@@ -1,0 +1,15 @@
+packages:
+  "framer-motion": "For cinematic glassmorphism animations, card flips, and page transitions"
+  "date-fns": "For formatting article published dates and timelines"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility to merge tailwind classes safely"
+  "@hookform/resolvers": "For forms if needed"
+
+images:
+  - path: "artifacts/news-platform/public/images/deep-space-bg.png"
+    description: "Cinematic deep space dark gradient background, glassmorphism style, very subtle stars and glowing nebulas in dark cyan and deep purple, completely abstract and clean"
+    aspect_ratio: "16:9"
+
+notes:
+  - Using generated React Query hooks from @workspace/api-client-react
+  - App defaults to a forced dark theme utilizing the glassmorphism aesthetic

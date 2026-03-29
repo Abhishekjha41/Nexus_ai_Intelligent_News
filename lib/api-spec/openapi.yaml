@@ -1,0 +1,624 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: openai
+    description: OpenAI AI chat, image, and audio operations
+  - name: news
+    description: News feed and article operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /news/feed:
+    get:
+      operationId: getNewsFeed
+      tags: [news]
+      summary: Get personalized news feed
+      parameters:
+        - name: categories
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: News feed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NewsArticle"
+  /news/trending:
+    get:
+      operationId: getTrendingTopics
+      tags: [news]
+      summary: Get trending topics as bubbles
+      responses:
+        "200":
+          description: Trending topics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrendingTopic"
+  /news/alerts:
+    get:
+      operationId: getAlerts
+      tags: [news]
+      summary: Get smart alerts
+      parameters:
+        - name: location
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Smart alerts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SmartAlert"
+  /news/articles/{id}/briefing:
+    post:
+      operationId: generateBriefing
+      tags: [news]
+      summary: Generate AI briefing for an article
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BriefingRequest"
+      responses:
+        "200":
+          description: AI briefing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleBriefing"
+  /news/articles/{id}/timeline:
+    get:
+      operationId: getArticleTimeline
+      tags: [news]
+      summary: Get story arc timeline for an article
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Story timeline
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StoryTimeline"
+  /news/preferences:
+    get:
+      operationId: getUserPreferences
+      tags: [news]
+      summary: Get user preferences
+      responses:
+        "200":
+          description: User preferences
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserPreferences"
+    post:
+      operationId: saveUserPreferences
+      tags: [news]
+      summary: Save user preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPreferences"
+      responses:
+        "200":
+          description: Saved preferences
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserPreferences"
+  /openai/conversations:
+    get:
+      operationId: listOpenaiConversations
+      tags: [openai]
+      summary: List all conversations
+      responses:
+        "200":
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpenaiConversation"
+    post:
+      operationId: createOpenaiConversation
+      tags: [openai]
+      summary: Create a new conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOpenaiConversationBody"
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiConversation"
+  /openai/conversations/{id}:
+    get:
+      operationId: getOpenaiConversation
+      tags: [openai]
+      summary: Get conversation with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversation with messages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiConversationWithMessages"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiError"
+    delete:
+      operationId: deleteOpenaiConversation
+      tags: [openai]
+      summary: Delete a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OpenaiError"
+  /openai/conversations/{id}/messages:
+    get:
+      operationId: listOpenaiMessages
+      tags: [openai]
+      summary: List messages in a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpenaiMessage"
+    post:
+      operationId: sendOpenaiMessage
+      tags: [openai]
+      summary: Send a text message and receive a streaming text response
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendOpenaiMessageBody"
+      responses:
+        "200":
+          description: SSE stream of assistant text chunks
+          content:
+            text/event-stream: {}
+  /openai/generate-image:
+    post:
+      operationId: generateOpenaiImage
+      tags: [openai]
+      summary: Generate an image from a text prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateOpenaiImageBody"
+      responses:
+        "200":
+          description: Generated image data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateOpenaiImageResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    NewsArticle:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        category:
+          type: string
+        source:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        imageUrl:
+          type: string
+        importance:
+          type: integer
+          description: Importance score 1-10
+        sentiment:
+          type: string
+          enum: [positive, neutral, negative]
+        tags:
+          type: array
+          items:
+            type: string
+        readTime:
+          type: integer
+          description: Estimated read time in seconds
+        relevanceReason:
+          type: string
+      required:
+        - id
+        - title
+        - summary
+        - category
+        - source
+        - publishedAt
+        - importance
+        - sentiment
+        - tags
+    TrendingTopic:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        importance:
+          type: integer
+          description: Size/importance 1-100
+        articleCount:
+          type: integer
+        trend:
+          type: string
+          enum: [rising, stable, falling]
+        color:
+          type: string
+      required:
+        - id
+        - name
+        - category
+        - importance
+        - articleCount
+        - trend
+    SmartAlert:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [weather, traffic, breaking, local, safety]
+        title:
+          type: string
+        message:
+          type: string
+        impact:
+          type: string
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        location:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - id
+        - type
+        - title
+        - message
+        - severity
+        - timestamp
+    BriefingRequest:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum: [beginner, normal, expert]
+        style:
+          type: string
+          enum: [tldr, deep_dive, thirty_seconds]
+      required:
+        - mode
+    ArticleBriefing:
+      type: object
+      properties:
+        articleId:
+          type: string
+        tldr:
+          type: string
+        keyPoints:
+          type: array
+          items:
+            type: string
+        whyItMatters:
+          type: string
+        impact:
+          type: string
+        whatNext:
+          type: string
+        mode:
+          type: string
+      required:
+        - articleId
+        - tldr
+        - keyPoints
+        - whyItMatters
+        - impact
+        - whatNext
+        - mode
+    StoryTimeline:
+      type: object
+      properties:
+        articleId:
+          type: string
+        title:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimelineEvent"
+        keyPeople:
+          type: array
+          items:
+            $ref: "#/components/schemas/KeyPerson"
+        sentimentChanges:
+          type: array
+          items:
+            $ref: "#/components/schemas/SentimentChange"
+        futurePredictions:
+          type: array
+          items:
+            type: string
+      required:
+        - articleId
+        - title
+        - events
+        - keyPeople
+        - sentimentChanges
+        - futurePredictions
+    TimelineEvent:
+      type: object
+      properties:
+        date:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        importance:
+          type: string
+          enum: [low, medium, high]
+      required:
+        - date
+        - title
+        - description
+        - importance
+    KeyPerson:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        sentiment:
+          type: string
+      required:
+        - name
+        - role
+        - sentiment
+    SentimentChange:
+      type: object
+      properties:
+        date:
+          type: string
+        sentiment:
+          type: number
+        label:
+          type: string
+      required:
+        - date
+        - sentiment
+        - label
+    UserPreferences:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+        location:
+          type: string
+        readingLevel:
+          type: string
+          enum: [beginner, normal, expert]
+        alertsEnabled:
+          type: boolean
+      required:
+        - categories
+        - readingLevel
+    OpenaiConversation:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - createdAt
+    OpenaiMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - conversationId
+        - role
+        - content
+        - createdAt
+    CreateOpenaiConversationBody:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title
+    SendOpenaiMessageBody:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+    OpenaiConversationWithMessages:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/OpenaiMessage"
+      required:
+        - id
+        - title
+        - createdAt
+        - messages
+    GenerateOpenaiImageBody:
+      type: object
+      properties:
+        prompt:
+          type: string
+        size:
+          type: string
+          enum: ["1024x1024", "512x512", "256x256"]
+      required:
+        - prompt
+    GenerateOpenaiImageResponse:
+      type: object
+      properties:
+        b64_json:
+          type: string
+      required:
+        - b64_json
+    OpenaiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
