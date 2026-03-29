@@ -128,6 +128,7 @@ function ArticleChat({ article }: { article: NewsArticle }) {
     setIsLoading(true);
 
     // 🔥 HACKATHON MOCK: Simulate AI thinking delay for 1.5 seconds
+    // Isme koi fetch api nahi hai, toh error aane ka chance hi zero hai!
     setTimeout(() => {
       const mockResponses = [
         `Based on the article's context regarding "${currentInput}", the key takeaway is that this development has significant global implications.`,
@@ -148,7 +149,6 @@ function ArticleChat({ article }: { article: NewsArticle }) {
 
   return (
     <div className="mt-8 relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-      {/* Background Orbs for Glassmorphism Effect */}
       <div className="absolute -top-20 -right-20 w-48 h-48 bg-primary/20 rounded-full blur-[80px] pointer-events-none"></div>
       <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-secondary/15 rounded-full blur-[80px] pointer-events-none"></div>
 
