@@ -1,6 +1,6 @@
 // @ts-nocheck
 import app from "./app";
-import { logger } from "./lib/logger";
+import { logger } from "./lib/logger.ts";
 
 const rawPort = process.env["PORT"];
 
