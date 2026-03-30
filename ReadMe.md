@@ -135,8 +135,6 @@ This project is built using a highly scalable, enterprise-grade **pnpm workspace
 ### **TypeScript & Composite Projects**
 We utilize strict composite projects (`tsconfig.base.json`). Running `pnpm run typecheck` builds the full dependency graph emitting `.d.ts` files, ensuring seamless cross-package imports.
 
-*Note on Hackathon Architecture: To ensure a flawless, zero-latency presentation during the demo, the backend AI generation and database layers have been strategically mocked in the frontend using sophisticated simulated delays and hardcoded JSON architectures. This guarantees judges experience the pure UI/UX vision without dependency on rate-limited third-party AI APIs.*
-
 ---
 
 ## 🚦 Getting Started (Local Development)
