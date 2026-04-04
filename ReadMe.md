@@ -12,7 +12,7 @@ Welcome to our project repository! To get a complete understanding of our vision
 
 * 🎥 **[Demo Video (3-4 Mins) - Watch Here](https://drive.google.com/file/d/1oiVqudxl5qL8UGfU5yKt0gr5VFH39yYi/view?usp=sharing)**: A complete walkthrough of the Infoverse, Adaptive Reading Lens, and Contextual AI Chat in action.
 * 📊 **[Pitch Deck / Presentation - View Here](https://drive.google.com/file/d/12xJf2wEvB0FLwqaH8kX8pSloyQmuG2g4/view?usp=sharing)**: Our 8-slide startup pitch outlining the problem, solution, features, and future roadmap.
-
+* 🌟 **[Live Project Link](https://nexus-ai-intelligent-news-news-plat-two.vercel.app/)**: A live deployed version of NexusAi for prototype phase.
 ---
 
 ## 🖼️ Project ScreenShots
